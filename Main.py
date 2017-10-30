@@ -28,10 +28,10 @@ def r_i_ReadScript(r_i_Name): #This works - Need to add decoder from Ansi!!
 		return URL, SaveFileAs #Store these variables for further use
 		print(lines[2])	
 		DescriptionLine=(lines[2].split("="))
-		print(DescriptionLine[0].decode(utf-8))
+		print(DescriptionLine[0].decode(utf-8))##Check
 	else:
-		print("Looks like this isn't a suitable install file. Please try doing it manually."
-'''
+		print("Looks like this isn't a suitable install file. Please try doing it manually.")
+
 def AskToContinue(): #Ask for permission to continue	
 	AskUser=input("Continue with the installation process? [y/N]")
 	if AskUser=="Y" or AskUser=="y":
@@ -40,12 +40,12 @@ def AskToContinue(): #Ask for permission to continue
 		print("Installation aborted! Only y or Y continues the installation")
 		quit()
 
-def GoToEU07DownloadFolder():
+def cdEU07Download():
 	os.chdir(MaSzynaFolder)
 	os.chdir("download")
 
-def DownloadProcess(URL, SaveFileTo):
-	GoToEU07DownloadFolder() 
+def Download(URL, SaveFileTo):
+	cdEU07Download() 
 	r = requests.get(URL, stream=True)
 	with open(SaveFileTo, 'wb') as fd:
 		for chunk in r.iter_content(chunk_size=128):
@@ -73,15 +73,14 @@ def TexturesTxtProcess(): #Process that adds the required Textures.txt entries
 	ReadingTexturesNr=(int(lines.index(TextureTxtEntryHeading)))#		!!!
 	print(ReadingTexturesNr)#ok
 	ActualLine=int(ReadingTexturesNr)+2
-'''
-'''
+
 def DetermineIfScriptOrArchive(InstallFile):
 	IsScript=True #Debug only	
 	if IsScript==True:	
 		r_i_ReadScript(InstallName)
 		AskToContinue()		
-		DownloadProcess(URL, SaveFileAs)
+		Download(URL, SaveFileAs)
 		ArchiveExtraction(SaveFileAs, ContentsDestination)	
 		if "[TEXTURES.TXT]\n" in lines:
 			TexturesTxtProcess()
-'''
+
